@@ -1,0 +1,15 @@
+name: 'SEO Spy Action'
+description: 'SEO Spy Action is a Python-based web scraping tool'
+inputs:
+  domain:
+    description: 'URL of the tested domain'
+    required: true
+  args:
+    description: 'Argument passed to the SEO Spy (check documentation)'
+    required: true
+    default: '-o'
+runs:
+  using: 'composite'
+  steps:
+    - run: seo-spy/seo_spy/main.py -d ${{ inputs.domain }} ${{ inputs.args }}
+      shell: bash

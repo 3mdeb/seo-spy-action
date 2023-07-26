@@ -1,0 +1,25 @@
+on: [push]
+
+jobs:
+  seo_spy_job:
+    runs-on: ubuntu-latest
+    name: Check orphan pages with SEO Spy
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Checkout SEO Spy
+      uses: actions/checkout@v3
+      with:
+        repository: 3mdeb/seo-spy
+        path: seo-spy
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r seo-spy/requirements.txt
+    - name: Check orphan pages
+      uses: 3mdeb/seo-spy-action@main
+      with:
+        domain: 'https://docs.dasharo.com'
